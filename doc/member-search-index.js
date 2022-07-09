@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"com.Bit.microservice1externalService","c":"Microservice1ExternalServiceApplication","l":"main(String[])","u":"main(java.lang.String[])"},{"p":"com.Bit.microservice1externalService","c":"Microservice1ExternalServiceApplication","l":"Microservice1ExternalServiceApplication()","u":"%3Cinit%3E()"}];updateSearchResults();
