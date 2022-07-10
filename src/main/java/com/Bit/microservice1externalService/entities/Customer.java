@@ -38,7 +38,7 @@ public class Customer {
 
 	@Column(name = "company_name", nullable = false, length = 100)
 	private String companyName;
-
+ 
 	@Column(name = "create_time", nullable = false)
 	private LocalDateTime createTime;
 
