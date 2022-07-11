@@ -58,7 +58,7 @@ public class CustomerController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<?> getAllProducts()
+	public ResponseEntity<?> getAllCustomers()
 	{
 		return ResponseEntity.ok(customerService.getAllCustomers());
 		
