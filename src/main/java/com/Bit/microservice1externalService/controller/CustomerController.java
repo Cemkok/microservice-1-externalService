@@ -5,6 +5,8 @@
  */
 package com.Bit.microservice1externalService.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Bit.microservice1externalService.business.abstracts.CustomerService;
-import com.Bit.microservice1externalService.entities.Customer;
+
+import com.Bit.microservice1externalService.entities.requests.CreateCustomerRequest;
 
 /**
  * @author Cem Kok
@@ -43,10 +46,10 @@ public class CustomerController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> addCustomer(@RequestBody Customer customer)
+	public ResponseEntity<?> addCustomer(@Valid @RequestBody CreateCustomerRequest createCustomerRequest)
 	
 	{
-		return new ResponseEntity<>(customerService.addCustomer(customer), HttpStatus.CREATED);
+		return new ResponseEntity<>(customerService.addCustomer(createCustomerRequest), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("{customerId}")
@@ -58,9 +61,9 @@ public class CustomerController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<?> getAllCustomers()
+	public ResponseEntity<?> getAllCustomers(@PathVariable int pageNo, @PathVariable  int pageSize)
 	{
-		return ResponseEntity.ok(customerService.getAllCustomers());
+		return ResponseEntity.ok(customerService.getAllCustomers(pageNo, pageSize));
 		
 	}
 	

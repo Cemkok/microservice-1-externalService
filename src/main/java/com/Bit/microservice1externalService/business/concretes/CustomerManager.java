@@ -7,13 +7,19 @@ package com.Bit.microservice1externalService.business.concretes;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.Bit.microservice1externalService.business.abstracts.CustomerService;
+import com.Bit.microservice1externalService.core.mapping.ModelMapperService;
 import com.Bit.microservice1externalService.dataAccess.CustomerDao;
 import com.Bit.microservice1externalService.entities.Customer;
+import com.Bit.microservice1externalService.entities.dtos.CustomerListDto;
+import com.Bit.microservice1externalService.entities.requests.CreateCustomerRequest;
 
 /**
  * @author Cem Kok
@@ -24,15 +30,28 @@ import com.Bit.microservice1externalService.entities.Customer;
 @Service
 public class CustomerManager implements CustomerService {
 	
-	@Autowired
 	private CustomerDao customerDao;
+	private ModelMapperService modelMapperService;
+
+	@Autowired
+	public CustomerManager(CustomerDao customerDao, ModelMapperService modelMapperService) {
+
+		this.customerDao = customerDao;
+		this.modelMapperService=modelMapperService;
+		
+	}
+	
+	
+	
 	
 	
 	@Override
-	public Customer addCustomer(Customer customer) {
+	public Customer addCustomer(CreateCustomerRequest createCustomerRequest) {
+		Customer customer = this.modelMapperService.forRequest().map(createCustomerRequest, Customer.class);
 		customer.setCreateTime(LocalDateTime.now());
 		return customerDao.save(customer);
 	}
+	
 	
 	@Override
 	public void	deleteCustomer (Long customerId) {
@@ -40,9 +59,18 @@ public class CustomerManager implements CustomerService {
 		customerDao.deleteById(customerId);
 	}
 	
+	
+	
+	
 	@Override
-	public List<Customer> getAllCustomers() {
-		return this.customerDao.findAll();
+	public List<CustomerListDto> getAllCustomers(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+		List<Customer> customerList = this.customerDao.findAll(pageable).getContent();
+		List<CustomerListDto> response = customerList.stream()
+				.map(customer -> modelMapperService.forDto()
+						.map(customer, CustomerListDto.class))
+				.collect(Collectors.toList());
+		return response;
 	}
 		
 	}

@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
+
 public class ModelMapperManager implements ModelMapperService {
+	
 	private ModelMapper modelMapper;
 
 	@Autowired

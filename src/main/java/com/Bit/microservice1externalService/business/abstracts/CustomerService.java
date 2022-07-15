@@ -8,6 +8,8 @@ package com.Bit.microservice1externalService.business.abstracts;
 import java.util.List;
 
 import com.Bit.microservice1externalService.entities.Customer;
+import com.Bit.microservice1externalService.entities.dtos.CustomerListDto;
+import com.Bit.microservice1externalService.entities.requests.CreateCustomerRequest;
 
 /**
  * @author Cem Kok
@@ -21,16 +23,28 @@ public interface CustomerService {
 	 * @param customer
 	 * @return
 	 */
-	Customer addCustomer(Customer customer);
+	
 
 	/**
 	 * @param customerId
 	 */
 	void deleteCustomer(Long customerId);
 
+
+
 	/**
+	 * @param createCustomerRequest
 	 * @return
 	 */
-	List<Customer> getAllCustomers();
+	Customer addCustomer(CreateCustomerRequest createCustomerRequest);
+
+
+
+	/**
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	List<CustomerListDto> getAllCustomers(int pageNo, int pageSize);
 
 }
