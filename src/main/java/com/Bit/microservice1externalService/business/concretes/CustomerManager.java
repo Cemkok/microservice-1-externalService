@@ -34,14 +34,11 @@ public class CustomerManager implements CustomerService {
 		return customerDao.save(customer);
 	}
 	
-	
 	@Override
 	public void	deleteCustomer (Long customerId) {
 		
 		customerDao.deleteById(customerId);
-		
 	}
-	
 	
 	@Override
 	public List<Customer> getAllCustomers() {
