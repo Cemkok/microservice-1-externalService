@@ -38,6 +38,7 @@ public class Microservice1ExternalServiceApplication {
 	}
 	
 	@Bean 
-	public ModelMapper getModelMapper() { return new ModelMapper(); }
+	public ModelMapper getModelMapper() {
+		return new ModelMapper(); }
 
 }

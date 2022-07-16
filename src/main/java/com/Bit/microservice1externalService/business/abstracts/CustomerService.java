@@ -19,10 +19,7 @@ import com.Bit.microservice1externalService.entities.requests.CreateCustomerRequ
  */
 public interface CustomerService {
 
-	/**
-	 * @param customer
-	 * @return
-	 */
+	
 	
 
 	/**
@@ -46,5 +43,39 @@ public interface CustomerService {
 	 * @return
 	 */
 	List<CustomerListDto> getAllCustomers(int pageNo, int pageSize);
+
+
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	String deleteById(Long id);
+
+
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	Object getByCustomerId(Long id);
+
+
+
+	/**
+	 * @return
+	 */
+	List<Customer> getAllSortedByCustomerName();
+
+
+
+	/**
+	 * @param companyName
+	 * @return
+	 */
+	Object findAllFilteredByCompanyName(String companyName);
+	
+	
+
 
 }

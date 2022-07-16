@@ -45,27 +45,52 @@ public class CustomerController {
 		this.customerService = customerService;
 	}
 	
-	@PostMapping
+	@PostMapping("/add")
 	public ResponseEntity<?> addCustomer(@Valid @RequestBody CreateCustomerRequest createCustomerRequest)
 	
 	{
 		return new ResponseEntity<>(customerService.addCustomer(createCustomerRequest), HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("{customerId}")
+	@DeleteMapping("/deleteById/{customerId}")
 	public ResponseEntity<?> deleteByCustomerId(@PathVariable Long customerId){
 		
 		customerService.deleteCustomer(customerId);
 		 return  new ResponseEntity<>(HttpStatus.OK);
 		
 	}
+	  @GetMapping("/getById/{id}") 
 	
-	@GetMapping
+	  public ResponseEntity<?> getByCustomerId(@PathVariable Long id) {
+		 
+	  return ResponseEntity.ok(this.customerService.getByCustomerId(id));
+	  
+	  }
+	  @GetMapping("/filteredByCompanyName/{companyName}")
+	  
+	  public ResponseEntity<?> findAllFilteredByCompanyName(
+			  @PathVariable String companyName) 
+	  {
+		 
+		  return ResponseEntity.ok(this.customerService.findAllFilteredByCompanyName(companyName));
+	  }
+	
+	@GetMapping("/getAllByPage/{pageNo}/{pageSize}")
 	public ResponseEntity<?> getAllCustomers(@PathVariable int pageNo, @PathVariable  int pageSize)
 	{
 		return ResponseEntity.ok(customerService.getAllCustomers(pageNo, pageSize));
 		
 	}
+	@GetMapping("/getAllSortedByCustomerName")
+	 
+	  public ResponseEntity<?> getAllSortedByCustomerName() {
+		  
+		 
+		  
+		  return ResponseEntity.ok(this.customerService.getAllSortedByCustomerName()); 
+	  }
+	   
+	
 	
 	
 
