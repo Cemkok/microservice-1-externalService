@@ -95,7 +95,7 @@ public class CustomerController {
 
 		return ResponseEntity.ok(this.customerService.getAllSortedByCustomerName());
 	}
-
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {
@@ -110,5 +110,7 @@ public class CustomerController {
 		return errors;
 
 	}
+
+	
 
 }
