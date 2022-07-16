@@ -1,0 +1,4 @@
+2022-07-16 21:45:21,460 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting Microservice1ExternalServiceApplication using Java 15.0.2 on CEM with PID 26348 (C:\Users\cemko\OneDrive\Masaüstü\32Bit-Remake\microservice-1-externalService\target\classes started by cemko in C:\Users\cemko\OneDrive\Masaüstü\32Bit-Remake\microservice-1-externalService)
+2022-07-16 21:45:21,464 DEBUG org.springframework.boot.StartupInfoLogger [restartedMain] Running with Spring Boot v2.4.5, Spring v5.3.6
+2022-07-16 21:45:21,465 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to default profiles: default
+2022-07-16 21:45:29,295 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started Microservice1ExternalServiceApplication in 8.526 seconds (JVM running for 9.349)
