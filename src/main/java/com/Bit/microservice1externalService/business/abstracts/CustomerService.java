@@ -6,7 +6,10 @@
 package com.Bit.microservice1externalService.business.abstracts;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.Bit.microservice1externalService.core.results.DataResult;
+import com.Bit.microservice1externalService.core.results.Result;
 import com.Bit.microservice1externalService.entities.Customer;
 import com.Bit.microservice1externalService.entities.dtos.CustomerListDto;
 import com.Bit.microservice1externalService.entities.requests.CreateCustomerRequest;
@@ -25,7 +28,7 @@ public interface CustomerService {
 	/**
 	 * @param customerId
 	 */
-	void deleteCustomer(Long customerId);
+	Result deleteCustomer(Long customerId);
 
 
 
@@ -33,7 +36,7 @@ public interface CustomerService {
 	 * @param createCustomerRequest
 	 * @return
 	 */
-	Customer addCustomer(CreateCustomerRequest createCustomerRequest);
+	Result addCustomer(CreateCustomerRequest createCustomerRequest);
 
 
 
@@ -42,30 +45,12 @@ public interface CustomerService {
 	 * @param pageSize
 	 * @return
 	 */
-	List<CustomerListDto> getAllCustomers(int pageNo, int pageSize);
-
-
-
-	/**
-	 * @param id
-	 * @return
-	 */
-	String deleteById(Long id);
-
-
-
-	/**
-	 * @param id
-	 * @return
-	 */
-	Object getByCustomerId(Long id);
-
-
+	DataResult<List<CustomerListDto>> getAllCustomers(int pageNo, int pageSize);	
 
 	/**
 	 * @return
 	 */
-	List<Customer> getAllSortedByCustomerName();
+	DataResult<List<Customer>> getAllSortedByCustomerName();
 
 
 
@@ -73,7 +58,15 @@ public interface CustomerService {
 	 * @param companyName
 	 * @return
 	 */
-	Object findAllFilteredByCompanyName(String companyName);
+	 DataResult<List<CustomerListDto>> findAllFilteredByCompanyName(String companyName);
+
+
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	DataResult<Optional<Customer>> getByCustomerId(Long id);
 	
 	
 

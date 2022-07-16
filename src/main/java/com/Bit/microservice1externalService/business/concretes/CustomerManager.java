@@ -7,7 +7,7 @@ package com.Bit.microservice1externalService.business.concretes;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.Bit.microservice1externalService.business.abstracts.CustomerService;
+import com.Bit.microservice1externalService.core.constants.Messages;
 import com.Bit.microservice1externalService.core.mapping.ModelMapperService;
+import com.Bit.microservice1externalService.core.results.DataResult;
+import com.Bit.microservice1externalService.core.results.ErrorDataResult;
+import com.Bit.microservice1externalService.core.results.ErrorResult;
+import com.Bit.microservice1externalService.core.results.Result;
+import com.Bit.microservice1externalService.core.results.SuccessDataResult;
+import com.Bit.microservice1externalService.core.results.SuccessResult;
 import com.Bit.microservice1externalService.dataAccess.CustomerDao;
 import com.Bit.microservice1externalService.entities.Customer;
 import com.Bit.microservice1externalService.entities.dtos.CustomerListDto;
@@ -44,68 +51,73 @@ public class CustomerManager implements CustomerService {
 	}
 	
 	@Override
-	public Customer addCustomer(CreateCustomerRequest createCustomerRequest) {
+	public Result addCustomer(CreateCustomerRequest createCustomerRequest) {
 		Customer customer = this.modelMapperService.forRequest().map(createCustomerRequest, Customer.class);
 		customer.setCreateTime(LocalDateTime.now());
-		return customerDao.save(customer);
-	}
-	
-	@Override
-	public void	deleteCustomer (Long customerId) {
+		customerDao.save(customer);
 		
-		customerDao.deleteById(customerId);
+		return new SuccessDataResult<Customer>(customer,Messages.customerAdded );
 	}
 	
+	
 	@Override
-	public String deleteById(Long id) {
-		if(customerDao.existsById(id)){
-			customerDao.deleteById(id);
-			return (id+"Numaralı Müşteri silindi");}
+	public Result deleteCustomer(Long customerId) {
+		if(customerDao.existsById(customerId)){
+			customerDao.deleteById(customerId);
+			return new SuccessResult(Messages.customerDeletedById +customerId);}
 		
-		else return (id+" numaralı id  mevcut değil");
+		else return new ErrorResult(Messages.noCustomer);
 	}
 	
 	
+	
+	
+
+	
+
 	@Override
-	public Object getByCustomerId(Long id) {
+	public DataResult<Optional<Customer>> getByCustomerId(Long id) {
 			if(customerDao.existsById(id))
-			{return 
-			(this.customerDao.findById(id));
+			{return new SuccessDataResult<Optional<Customer>>(this.customerDao.findById(id), id+"Id'li müşteri getirildi");
 			}
 		
-			else return("Girilen id :"+id+" mevcut değil");
+			else return new ErrorDataResult<>(Messages.noCustomer);
 	}
 	
 	
+	
 	@Override
-	public List<CustomerListDto> getAllCustomers(int pageNo, int pageSize) {
+	public DataResult<List<CustomerListDto>> getAllCustomers(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 		List<Customer> customerList = this.customerDao.findAll(pageable).getContent();
 		List<CustomerListDto> response = customerList.stream()
 				.map(customer -> modelMapperService.forDto()
 						.map(customer, CustomerListDto.class))
 				.collect(Collectors.toList());
-		return response;
+		return  new SuccessDataResult<List<CustomerListDto>>(response, "oldu");
 	}
 	
 
-	@Override
-	public List<Customer> getAllSortedByCustomerName() {
+	@Override 
+	public  DataResult<List<Customer>> getAllSortedByCustomerName() {
 		Sort sort = Sort.by(Sort.Direction.DESC, "customerName");
 
-		return (this.customerDao.findAll(sort));
+		return new SuccessDataResult<List<Customer>>(this.customerDao.findAll(sort),Messages.descSorted);
 	}
 
+	
 	@Override
 	
-	public List<CustomerListDto> findAllFilteredByCompanyName(String companyName) {
+	public DataResult<List<CustomerListDto>> findAllFilteredByCompanyName(String companyName) {
 	
-		List<CustomerListDto> response = this.customerDao.findAll().stream().filter(customer->companyName.equals(customer.getCompanyName()))
+		List<CustomerListDto> response = this.customerDao.findAll().stream().filter(customer->
+				companyName.equals(customer.getCompanyName()))
 				.map(customer -> modelMapperService.forDto()
 						.map(customer, CustomerListDto.class))
 				.collect(Collectors.toList());
-		return response;
+		return new SuccessDataResult<List<CustomerListDto>>(response, Messages.getAllByCompanyName);
 	}
+	
 
 
 
