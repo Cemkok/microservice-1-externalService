@@ -1,0 +1,9 @@
+{
+	"name":"bit32-microservice-1-external",
+	
+	"buildpacks":[
+	{
+	"url": "heroku/maven"
+	}
+	 ]
+}
