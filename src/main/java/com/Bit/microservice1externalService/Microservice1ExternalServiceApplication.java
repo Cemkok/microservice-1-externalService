@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
 
 
 /**
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Bean;
  * @see This class is the main class of the project, project runs from this class
  */
 
+@PropertySource("classpath:application-${spring.profiles.active:default}.properties")
 @SpringBootApplication
 public class Microservice1ExternalServiceApplication {
 
