@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 /**
+ * This class is an Entity Class.
  * @author Cem Kok
  * @Date 10 Tem 2022
  * @Time 17:23:14

@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"com.Bit.microservice1externalService.business.abstracts","l":"CustomerService"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"com.Bit.microservice1externalService.business.concretes","l":"CustomerManager"}];updateSearchResults();

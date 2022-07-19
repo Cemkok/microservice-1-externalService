@@ -1,5 +1,15 @@
+/**
+ * 
+ */
 package com.Bit.microservice1externalService.core.constants;
 
+/**
+ * 
+ * @author Cem Kok
+ * @Date   17 Tem 2022
+ * @Time   20:45:05
+ * @see This class has constant messages
+ */
 public class Messages {
 	public static final String getCustomerById="customer.found.by.id";
 	public static final String noCustomer="customer.not.found";

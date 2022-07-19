@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
  * @author Cem Kok
  * @Date 10 Tem 2022
  * @Time 18:11:46
- * @See
+ * @see This class is the main class of the project, project runs from this class
  */
 
 @SpringBootApplication
@@ -37,6 +37,10 @@ public class Microservice1ExternalServiceApplication {
 		SpringApplication.run(Microservice1ExternalServiceApplication.class, args);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@Bean 
 	public ModelMapper getModelMapper() {
 		return new ModelMapper(); }
