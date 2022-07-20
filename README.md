@@ -1,9 +1,18 @@
-# Microservice customer
+# External microservice
+This microservice performs basic crud operations as well as sorting, paging, and filtering for customer information.
 
-### Endpoints:
+## What technologies were used?
+ <ul>
+ <li>Spring boot</li>
+ <li>maven</li>
+ <li>Spring Security<li>
+ <li>Jwt<li>
+  <li>Jwt<li>
+   <li>Jwt<li>
+    <li>Jwt<li>
+ </ul>
 
 
-#### Save Customer
 
 ...........................
 
