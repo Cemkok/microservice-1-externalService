@@ -1,1 +1,12 @@
+com.Bit.microservice1externalService
+com.Bit.microservice1externalService.business.abstracts
 com.Bit.microservice1externalService.business.concretes
+com.Bit.microservice1externalService.controller
+com.Bit.microservice1externalService.core.constants
+com.Bit.microservice1externalService.core.mapping
+com.Bit.microservice1externalService.core.results
+com.Bit.microservice1externalService.dataAccess
+com.Bit.microservice1externalService.entities
+com.Bit.microservice1externalService.entities.dtos
+com.Bit.microservice1externalService.entities.requests
+com.Bit.microservice1externalService.security

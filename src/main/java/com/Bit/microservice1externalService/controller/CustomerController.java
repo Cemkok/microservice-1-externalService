@@ -381,7 +381,7 @@ public class CustomerController {
 	 *         message, boolean success status, HttpStatus code.
 	 */
 
-	@GetMapping("findAllFilteredByCompanyName/{companyName}")
+	@GetMapping("/{companyName}")
 
 	public ResponseEntity<?> findAllFilteredByCompanyName(@PathVariable String companyName) {
 		log.info(
