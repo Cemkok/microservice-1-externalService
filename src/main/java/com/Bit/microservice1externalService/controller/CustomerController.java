@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Bit.microservice1externalService.business.abstracts.CustomerService;
 import com.Bit.microservice1externalService.core.constants.Logging;
 import com.Bit.microservice1externalService.core.results.ErrorDataResult;
-
+import com.Bit.microservice1externalService.core.results.Result;
 import com.Bit.microservice1externalService.entities.requests.CreateCustomerRequest;
 
 import lombok.extern.slf4j.Slf4j;
@@ -323,13 +323,14 @@ public class CustomerController {
 	public ResponseEntity<?> addCustomer(@Valid @RequestBody CreateCustomerRequest createCustomerRequest)
 
 	{
-		log.info("[addCustomer method is called ]--" + "[input parameter = " + createCustomerRequest + "]--"
-
-		);
+		Result response = this.customerService.addCustomer(createCustomerRequest);
+		String resultForLogging = ToStringBuilder.reflectionToString(response);
+		log.info("[addCustomer method is called ]--" + "[input parameter = " + createCustomerRequest
+				+ "]-- [output parameter = " + resultForLogging + "]");
 
 		Logging.internalLogDetail();
 
-		return new ResponseEntity<>(customerService.addCustomer(createCustomerRequest), HttpStatus.CREATED);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
 	/**
@@ -341,12 +342,15 @@ public class CustomerController {
 
 	@DeleteMapping("/deleteById/{customerId}")
 	public ResponseEntity<?> deleteByCustomerId(@PathVariable Long customerId) {
+
+		Result response = this.customerService.deleteCustomer(customerId);
+		String resultForLogging = ToStringBuilder.reflectionToString(response);
 		log.debug("[deleteByCustomerId method is called ]--" + "[input parameter = " + customerId + "]--"
-				+ "[output parameter = " + "]");
+				+ "[output parameter = " + resultForLogging + "]");
 		;
 		Logging.internalLogDetail();
 
-		return ResponseEntity.ok(this.customerService.deleteCustomer(customerId));
+		return ResponseEntity.ok(response);
 
 	}
 
@@ -361,13 +365,16 @@ public class CustomerController {
 	@GetMapping("/getById/{id}")
 
 	public ResponseEntity<?> getByCustomerId(@PathVariable Long id) {
-
-		log.debug("[getByCustomerId method is called ]--" + "[input parameter = " + id + "]--" + "[output parameter = "
-				+ ToStringBuilder.reflectionToString(this.customerService.getByCustomerId(id)) + "]");
+			
+		Result response  =this.customerService.getByCustomerId(id);
+		String resultForLogging = ToStringBuilder.reflectionToString(response);
+		log.debug("[getByCustomerId method is called ]--" + "[input parameter = " + id + "]--" 
+		+ "[output parameter = "+resultForLogging
+				+  "]");
 		;
 		Logging.internalLogDetail();
 
-		return ResponseEntity.ok(this.customerService.getByCustomerId(id));
+		return ResponseEntity.ok(response);
 
 	}
 
@@ -384,15 +391,17 @@ public class CustomerController {
 	@GetMapping("/{companyName}")
 
 	public ResponseEntity<?> findAllFilteredByCompanyName(@PathVariable String companyName) {
+		Result response  =this.customerService.findAllFilteredByCompanyName(companyName);
+		String resultForLogging = ToStringBuilder.reflectionToString(response);
 		log.info(
 				"[findAllFilteredByCompanyName method is called ]--"
-						+ "[input parameter = " + companyName + "]--" + "[output parameter = " + ToStringBuilder
-								.reflectionToString(this.customerService.findAllFilteredByCompanyName(companyName))
+						+ "[input parameter = " + companyName + "]--"
+						+"[output parameter = " + resultForLogging
 						+ "]");
 		;
 		Logging.internalLogDetail();
 
-		return ResponseEntity.ok(this.customerService.findAllFilteredByCompanyName(companyName));
+		return ResponseEntity.ok(response);
 	}
 
 	/**
@@ -405,13 +414,16 @@ public class CustomerController {
 	 */
 	@GetMapping("/getAllByPage/{pageNo}/{pageSize}")
 	public ResponseEntity<?> getAllCustomersByPage(@PathVariable int pageNo, @PathVariable int pageSize) {
+		Result response  =customerService.getAllCustomers(pageNo, pageSize);
+		String resultForLogging = ToStringBuilder.reflectionToString(response);
+		
 		log.info("[getAllCustomersByPage method is called ]--" + "[input parameter = { pageNo-pageSize}" + pageNo
-				+ pageSize + "]--" + "[output parameter = "
-				+ ToStringBuilder.reflectionToString(customerService.getAllCustomers(pageNo, pageSize)) + "]");
+				+ " , " + pageSize + "]--" + "[output parameter = "+resultForLogging
+				+  "]");
 		;
 		Logging.internalLogDetail();
 
-		return ResponseEntity.ok(customerService.getAllCustomers(pageNo, pageSize));
+		return ResponseEntity.ok(response);
 
 	}
 
@@ -424,12 +436,15 @@ public class CustomerController {
 	@GetMapping("/getAllSortedByCustomerName")
 
 	public ResponseEntity<?> getAllSortedByCustomerName() {
+		Result response  =this.customerService.getAllSortedByCustomerName();
+		String resultForLogging = ToStringBuilder.reflectionToString(response);
+		
 		log.info("[getAllSortedByCustomerName() method is called ]--" + "[input parameter = no arg]--"
-				+ "[output parameter = "
-				+ ToStringBuilder.reflectionToString(this.customerService.getAllSortedByCustomerName()) + "]");
+				+ "[output parameter = "+resultForLogging+
+				"]");
 		Logging.internalLogDetail();
 
-		return ResponseEntity.ok(this.customerService.getAllSortedByCustomerName());
+		return ResponseEntity.ok(response);
 	}
 
 	/**

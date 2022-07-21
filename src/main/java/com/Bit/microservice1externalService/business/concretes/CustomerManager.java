@@ -29,7 +29,7 @@ import com.Bit.microservice1externalService.core.results.ErrorDataResult;
 import com.Bit.microservice1externalService.core.results.ErrorResult;
 import com.Bit.microservice1externalService.core.results.Result;
 import com.Bit.microservice1externalService.core.results.SuccessDataResult;
-import com.Bit.microservice1externalService.core.results.SuccessResult;
+
 import com.Bit.microservice1externalService.dataAccess.CustomerDao;
 import com.Bit.microservice1externalService.entities.Customer;
 import com.Bit.microservice1externalService.entities.dtos.CustomerListDto;
@@ -175,13 +175,15 @@ public class CustomerManager implements CustomerService {
 	@Override
 	public Result deleteCustomer(Long customerId) {
 		if (customerDao.existsById(customerId)) {
-			customerDao.deleteById(customerId);
+		
+			
 			log.info("[deleteCustomer method is called ]--" + "[input parameter = " + "id :" + customerId + "]--"
 					+ "[output parameter = "
-					+ ToStringBuilder.reflectionToString(new SuccessResult(Messages.customerDeletedById + customerId))
+					+ ToStringBuilder.reflectionToString(new SuccessDataResult<Optional<Customer>>(	customerDao.findById(customerId),Messages.customerDeletedById ))
 					+ "]");
 			Logging.internalLogDetail();
-			return new SuccessResult(Messages.customerDeletedById + customerId);
+			customerDao.deleteById(customerId);
+			return new SuccessDataResult<Optional<Customer>>(customerDao.findById(customerId),Messages.customerDeletedById + customerId);
 		}
 
 		else
@@ -221,8 +223,8 @@ public class CustomerManager implements CustomerService {
 		List<CustomerListDto> response = customerList.stream()
 				.map(customer -> modelMapperService.forDto().map(customer, CustomerListDto.class))
 				.collect(Collectors.toList());
-		log.info("[getAllCustomers method is called ]--" + "[input parameter = " + "pageNo-pageSize :" + pageNo,
-				pageSize + "]--" + "[output parameter = "
+		log.info("[getAllCustomers method is called ]--" + "[input parameter = " + "pageNo-pageSize :" + pageNo+
+				" , "+ pageSize +  "]--" + "[output parameter = "
 						+ ToStringBuilder.reflectionToString(
 								new SuccessDataResult<List<CustomerListDto>>(response, "All customers have listed"))
 						+ "]");
@@ -233,14 +235,17 @@ public class CustomerManager implements CustomerService {
 	@Override
 	public DataResult<List<Customer>> getAllSortedByCustomerName() {
 		Sort sort = Sort.by(Sort.Direction.DESC, "customerName");
+		DataResult<List<Customer>> response = new SuccessDataResult<List<Customer>>(this.customerDao.findAll(sort), Messages.descSorted);
+		
+		String resultForLogging = ToStringBuilder.reflectionToString(response);
 		log.info("[getAllSortedByCustomerName method is called ]--" + "[input parameter = no args:" + "]--"
 				+ "[output parameter = "
-				+ ToStringBuilder.reflectionToString(
-						new SuccessDataResult<List<Customer>>(this.customerDao.findAll(sort), Messages.descSorted))
-				+ "]");
+				+ resultForLogging + "]");
+						
 		Logging.internalLogDetail();
 
-		return new SuccessDataResult<List<Customer>>(this.customerDao.findAll(sort), Messages.descSorted);
+		return response;
+		
 	}
 
 	@Override
