@@ -6,7 +6,7 @@ This microservice performs basic crud operations as well as sorting, paging, and
 - **Spring Boot**
 <br>
 
- >Java Spring Boot (Spring Boot) is a tool that makes developing web application and microservices with Spring Framework faster and easier through three core capabilities: Autoconfiguration. An opinionated approach to configuration. The ability to create standalone applications.
+ > Java Spring Boot (Spring Boot) is a tool that makes developing web application and microservices with Spring Framework faster and easier through three core capabilities: Autoconfiguration. An opinionated approach to configuration. The ability to create standalone applications.
  
   ![ Apache Maven](https://miro.medium.com/max/743/1*M7gYkSDwC5ny9SxxBwzozA.png)
 - **Apache Maven** 
