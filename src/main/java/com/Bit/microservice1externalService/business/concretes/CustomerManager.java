@@ -197,6 +197,7 @@ public class CustomerManager implements CustomerService {
 	@Override
 	public DataResult<Optional<Customer>> getByCustomerId(Long customerId) {
 		if (customerDao.existsById(customerId)) {
+			
 			log.info("[getByCustomerId method is called ]--" + "[input parameter = " + "id :" + customerId + "]--"
 					+ "[output parameter = "
 					+ ToStringBuilder.reflectionToString(new SuccessDataResult<Optional<Customer>>(

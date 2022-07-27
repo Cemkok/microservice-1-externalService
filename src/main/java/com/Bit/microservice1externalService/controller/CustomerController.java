@@ -293,7 +293,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("api/customer")
+@RequestMapping("api/customer") 
 public class CustomerController {
 
 	private CustomerService customerService;
@@ -388,7 +388,7 @@ public class CustomerController {
 	 *         message, boolean success status, HttpStatus code.
 	 */
 
-	@GetMapping("/{companyName}")
+	@GetMapping("findAllFilteredByCompanyName/{companyName}")
 
 	public ResponseEntity<?> findAllFilteredByCompanyName(@PathVariable String companyName) {
 		Result response  =this.customerService.findAllFilteredByCompanyName(companyName);
@@ -433,7 +433,7 @@ public class CustomerController {
 	 * @return a list sorted by customer name, message, boolean success status,
 	 *         HttpStatus code.
 	 */
-	@GetMapping("/getAllSortedByCustomerName")
+	@GetMapping("/getAllSortedByCompanyName")
 
 	public ResponseEntity<?> getAllSortedByCustomerName() {
 		Result response  =this.customerService.getAllSortedByCustomerName();
